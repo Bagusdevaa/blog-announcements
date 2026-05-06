@@ -45,8 +45,8 @@ async function sendToDiscord(account, article) {
         color: 0x00ab6c,
         author: {
             name: `${account.displayName} menulis artikel baru!`,
-            icon_url: account.avatarUrl,
             url: `https://medium.com/@${account.username}`,
+            ...(account.avatarUrl && { icon_url: account.avatarUrl }),
         },
         title: article.title,
         url: article.link,
@@ -59,7 +59,9 @@ async function sendToDiscord(account, article) {
     await fetch(WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ embeds: [embed] }),
+        body: JSON.stringify({ 
+            content: "@everyone Artikel baru nih! Bantu engage 🥹",
+            embeds: [embed] }),
     });
 }
 
