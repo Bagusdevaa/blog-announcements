@@ -17,6 +17,8 @@ jobs:
 
       - run: npm install
 
+      - run: echo "Running at $(date)"
+
       - run: node check.js
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
