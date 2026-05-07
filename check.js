@@ -34,6 +34,21 @@ async function saveSeenArticles(seen) {
     });
 }
 
+// Ambil subtitle jika ada
+function extractDescription(article) {
+  if (article.contentSnippet?.trim()) {
+    return article.contentSnippet.slice(0, 240) + "..."
+  }
+  if (article["content:encoded"]) {
+    const plain = article["content:encoded"]
+      .replace(/<[^>]+>/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+    return plain.slice(0, 240) + "..."
+  }
+  return "Baca selengkapnya di Medium."
+}
+
 // Kirim ke Discord via Webhook
 async function sendToDiscord(account, article) {
     const thumbnailMatch = article["content:encoded"]?.match(
@@ -50,7 +65,7 @@ async function sendToDiscord(account, article) {
         },
         title: article.title,
         url: article.link,
-        description: (article.contentSnippet?.slice(0, 200) ?? "") + "...",
+        description: extractDescription(article),
         timestamp: new Date(article.pubDate).toISOString(),
         footer: { text: "Medium" },
         ...(thumbnail && { image: { url: thumbnail } }),
