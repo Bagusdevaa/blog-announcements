@@ -75,7 +75,7 @@ async function sendToDiscord(account, article) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
-            content: "@everyone Artikel baru nih! Bantu engage 🥹",
+            content: "Ga minta tolong bantu engagement lagi, kalau tertarik baca, kalau engga yaudah 😔.",
             embeds: [embed] }),
     });
 }
