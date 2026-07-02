@@ -2,7 +2,9 @@ name: Check Medium Articles
 
 on:
   schedule:
-    - cron: '*/15 * * * *'
+    # Tiap 12 jam: 12:00 & 00:00 WITA (UTC+8) => 04:00 & 16:00 UTC.
+    # GitHub Actions cron selalu UTC.
+    - cron: '0 4,16 * * *'
   workflow_dispatch:        
 
 jobs:
